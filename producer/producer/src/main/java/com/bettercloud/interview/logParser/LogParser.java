@@ -20,10 +20,9 @@ public class LogParser {
     }
 
     public String parse() {
-        logger.debug("Log files present:");
         StringBuilder response = new StringBuilder();
+        String result;
         try {
-
             File[] fileList = logDirectory.listFiles();
             //Go through each JSON file and get the JSON contents from that file.
             for(int i = 0; i < fileList.length; i++) {
@@ -33,11 +32,16 @@ public class LogParser {
                 JsonNode jsonNode = parser.readValueAsTree();
                 response.append(readJsonData(jsonNode));
             }
+
+            result = response.toString();
         } catch (IOException e) {
-            logger.error("IO exception caught");
+            //TODO: Use appropriate response code and exception handling.
+            //Properly form response oject
+            response.append("Exception caught!");
+            result = "Exception caught";
         }
 
-        return response.toString();
+        return result;
     }
 
     private String readJsonData(JsonNode node) {
@@ -48,7 +52,6 @@ public class LogParser {
             //TODO: Extra credit: Figure out how to get this to stream to the consumer.
             String current = iterator.next().toString() + ",";
             builder.append(current);
-            System.out.println(current);
         }
         return builder.toString();
     }

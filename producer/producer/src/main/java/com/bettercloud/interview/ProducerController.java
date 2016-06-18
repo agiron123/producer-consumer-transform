@@ -11,9 +11,9 @@ public class ProducerController {
     private LogParser logParser;
     private static final Logger logger = LoggerFactory.getLogger(ProducerController.class);
 
-    //TODO: Extra Credit: Use dependency injection to initialize the log parser.
     public ProducerController() {
-        this.logParser = new LogParser(new File("C:\\Users\\Andre\\Desktop\\producer\\producer\\resources\\logs"));
+        String logDir = System.getProperty("user.dir") + File.separator + "resources" + File.separator + "logs";
+        this.logParser = new LogParser(new File(logDir));
     }
 
     @RequestMapping("/produce")
