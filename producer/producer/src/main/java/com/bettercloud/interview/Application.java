@@ -9,6 +9,8 @@ import org.springframework.context.ApplicationContext;
 @SpringBootApplication
 public class Application {
 	public static void main(String[] args) {
+        //Set the server port. Note: Also possible to do this via application.properties file.
+		System.getProperties().put( "server.port", 4000 );
 		ApplicationContext ctx = SpringApplication.run(Application.class, args);
 		System.out.println("Producer loaded.");
 	}
