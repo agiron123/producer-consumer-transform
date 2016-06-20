@@ -32,7 +32,6 @@ import java.util.ArrayList;
 
 import org.springframework.web.client.RestTemplate;
 
-
 @RestController
 public class ConsumerController {
     private static final Logger logger = LoggerFactory.getLogger(ConsumerController.class);

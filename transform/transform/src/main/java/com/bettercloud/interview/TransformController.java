@@ -38,17 +38,51 @@ public class TransformController {
 
     private ITransformModel transformModel;
     private ITransformer transformer;
+    private JsonFactory jsonFactory;
+    private RestTemplate restTemplate;
 
     @Autowired
     public TransformController(ITransformModel transformModel, ITransformer transformer) {
         this.transformModel = transformModel;
         this.transformer = transformer;
+        this.jsonFactory = new JsonFactory();
+        this.restTemplate = new RestTemplate();
     }
 
     @RequestMapping(value="/transform", method = RequestMethod.POST)
     public ResponseEntity<String> consume(@RequestBody String requestBody) {
         System.out.println("RequestBody:");
         System.out.println(requestBody);
+
+        try {
+            //Get root JSON node
+            JsonParser parser = jsonFactory.createJsonParser(requestBody);
+            parser.setCodec(new ObjectMapper());
+            JsonNode rootJsonNode = parser.readValueAsTree();
+
+            //Send root JSON node to the transformer to process.
+            transformer.transform(rootJsonNode);
+
+            //Put contents of the hashmap into JSON.
+            ObjectMapper objectMapper = new ObjectMapper();
+            JsonNode outputRoot = objectMapper.createObjectNode();
+            JsonNode tallyNode = objectMapper.createArrayNode();
+            ((ObjectNode)outputRoot).put("tally", tallyNode);
+
+            ConcurrentHashMap<String, Integer> tallyMap = transformModel.getModel();
+            for (String email: tallyMap.keySet()) {
+                Integer total = tallyMap.get(email);
+                TallyEntry tallyEntry = new TallyEntry(email, total);
+                ((ArrayNode)tallyNode).addPOJO(tallyEntry);
+            }
+
+            //TODO: Figure out where we are supposed to put the data from the transform step.
+            String jsonMap = objectMapper.writeValueAsString(outputRoot);
+            System.out.println("Transform JSON OUTPUT:");
+            System.out.println(jsonMap);
+        } catch (Exception e) {
+
+        }
 
         return new ResponseEntity<String>("[TransformController]: Transform route hit!", null, HttpStatus.OK);
     }
