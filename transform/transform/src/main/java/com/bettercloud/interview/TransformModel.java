@@ -12,17 +12,16 @@ public class TransformModel implements ITransformModel {
     }
 
     public void addEntry(String email, int total) {
-        //Really similar code to that of the consumer.
-        //TODO: Move to a shared package.
-
         if (model.containsKey(email)) {
             int current = model.get(email);
             model.put(email, current + total);
         } else {
-            model.put(email, 1);
+            model.put(email, total);
         }
     }
 
+    //TODO: Create an IStorage interface that we can use to make our implementation not dependant on hashmaps.
+    //One add method with just email parameter, another one with a total to add. This would accommodate consumer and transformer.
     public ConcurrentHashMap<String, Integer> getModel() {
         return this.model;
     }

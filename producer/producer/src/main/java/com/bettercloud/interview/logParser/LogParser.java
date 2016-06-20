@@ -28,8 +28,6 @@ public class LogParser {
     public LogParser(File logDirectory) {
         this.logDirectory = logDirectory;
         this.jsonFactory = new JsonFactory();
-        //this.requestFactory = new HttpComponentsClientHttpRequestFactory();
-        //this.restTemplate = new RestTemplate(requestFactory);
         this.restTemplate = new RestTemplate();
     }
 
@@ -42,7 +40,6 @@ public class LogParser {
             File[] fileList = logDirectory.listFiles();
             //Go through each JSON file and get the JSON contents from that file.
             for(int i = 0; i < fileList.length; i++) {
-            //for (int i = 0; i < 1; i++) { //TODO: Uncomment line above when done debugging.
                 //Reset the String builder
                 response.setLength(0);
 
@@ -61,13 +58,6 @@ public class LogParser {
                 } catch (IOException e) {
                     System.out.println("[LogParser].parse() IO exception caught");
                 }
-
-                /*
-                JsonParser parser = jsonFactory.createJsonParser(file);
-                parser.setCodec(new ObjectMapper());
-                JsonNode jsonNode = parser.readValueAsTree();
-                response.append(readJsonData(jsonNode));
-                */
 
                 //Send the data off to the consumer.
                 HttpHeaders headers = new HttpHeaders();

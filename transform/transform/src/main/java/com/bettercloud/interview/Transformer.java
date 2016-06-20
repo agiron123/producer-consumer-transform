@@ -13,10 +13,6 @@ public class Transformer implements ITransformer {
         this.transformModel = transformModel;
     }
     public void transform(JsonNode rootNode) {
-        //TODO: Make a shhared storage package and have a ConcurrentHashMapStorage implementation.
-        //Also have an IStorage interface, to make our code cleaner.
-        //Traverse through the nodes in the JSON object and add them to the model.
-
         JsonNode logRoot = rootNode.path("tally");
         Iterator elements = rootNode.elements();
         Iterator<JsonNode> iterator = logRoot.elements();

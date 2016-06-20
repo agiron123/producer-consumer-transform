@@ -70,7 +70,7 @@ public class ConsumerController {
             ((ObjectNode)outputRoot).put("tally", tallyNode);
 
             //Print out the tally data.
-            //TODO: Have getModel() return something more generic.
+            //TODO: Have getModel() return something more generic, like an IStorage interface.
             ConcurrentHashMap<String, Integer> tallyMap = consumerModel.getModel();
             for (String email: tallyMap.keySet()) {
                 Integer total = tallyMap.get(email);

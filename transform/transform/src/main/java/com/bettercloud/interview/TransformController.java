@@ -50,10 +50,7 @@ public class TransformController {
     }
 
     @RequestMapping(value="/transform", method = RequestMethod.POST)
-    public ResponseEntity<String> consume(@RequestBody String requestBody) {
-        System.out.println("RequestBody:");
-        System.out.println(requestBody);
-
+    public ResponseEntity<String> transform(@RequestBody String requestBody) {
         try {
             //Get root JSON node
             JsonParser parser = jsonFactory.createJsonParser(requestBody);
@@ -76,12 +73,13 @@ public class TransformController {
                 ((ArrayNode)tallyNode).addPOJO(tallyEntry);
             }
 
-            //TODO: Figure out where we are supposed to put the data from the transform step.
+            //Print the updated tally to the console.
             String jsonMap = objectMapper.writeValueAsString(outputRoot);
-            System.out.println("Transform JSON OUTPUT:");
+            System.out.println("Updated Tally:");
             System.out.println(jsonMap);
-        } catch (Exception e) {
 
+        } catch (Exception e) {
+            System.out.println("[TransformController]: Exception caught in transform route.");
         }
 
         return new ResponseEntity<String>("[TransformController]: Transform route hit!", null, HttpStatus.OK);
