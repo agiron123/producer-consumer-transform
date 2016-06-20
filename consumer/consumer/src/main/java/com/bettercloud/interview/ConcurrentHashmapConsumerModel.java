@@ -2,6 +2,7 @@ package com.bettercloud.interview;
 import java.util.concurrent.ConcurrentHashMap;
 import org.springframework.stereotype.Component;
 
+
 @Component
 public class ConcurrentHashMapConsumerModel implements IConsumerModel{
     private ConcurrentHashMap<String, Integer> map;
