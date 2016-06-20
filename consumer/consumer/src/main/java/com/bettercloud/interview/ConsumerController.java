@@ -15,6 +15,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -26,19 +30,22 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ArrayList;
 
+import org.springframework.web.client.RestTemplate;
+
 @RestController
 public class ConsumerController {
     private static final Logger logger = LoggerFactory.getLogger(ConsumerController.class);
     public IConsumerModel consumerModel;
     private JsonFactory jsonFactory;
+    private RestTemplate restTemplate;
 
     @Autowired
     public ConsumerController(IConsumerModel consumerModel) {
         //Note: we could simply do this with an in memory Concurrent Hashmap.
         //But to show OOP skills, we will use some Dependency Injection.
         this.consumerModel = consumerModel;
-
         this.jsonFactory = new JsonFactory();
+        this.restTemplate = new RestTemplate();
     }
 
     //Here is how we can accept a POST request.
@@ -63,7 +70,7 @@ public class ConsumerController {
             ((ObjectNode)outputRoot).put("tally", tallyNode);
 
             //Print out the tally data.
-            //TODO: Have getModel() return something more generic.
+            //TODO: Have getModel() return something more generic, like an IStorage interface.
             ConcurrentHashMap<String, Integer> tallyMap = consumerModel.getModel();
             for (String email: tallyMap.keySet()) {
                 Integer total = tallyMap.get(email);
@@ -74,6 +81,14 @@ public class ConsumerController {
             String jsonMap = objectMapper.writeValueAsString(outputRoot);
             System.out.println("JSON OUTPUT:");
             System.out.println(jsonMap);
+
+            //Send the data off to the transform.
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+
+            HttpEntity<String> entity = new HttpEntity<String>(jsonMap,headers);
+            String transformResponse = restTemplate.postForObject("http://localhost:4002/transform", entity, String.class);
+            System.out.println("Response from transform POST request: " + transformResponse);
 
         } catch (Exception e) {
             System.out.println("Consumer Controller exception caught!");

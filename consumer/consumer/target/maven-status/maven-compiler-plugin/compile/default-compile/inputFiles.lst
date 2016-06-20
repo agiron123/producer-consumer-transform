@@ -1,7 +1,7 @@
-/Users/andre/Documents/Code/Java/producer-consumer-transform/consumer/consumer/src/main/java/com/bettercloud/interview/ConsumeTask.java
-/Users/andre/Documents/Code/Java/producer-consumer-transform/consumer/consumer/src/main/java/com/bettercloud/interview/IConsumer.java
-/Users/andre/Documents/Code/Java/producer-consumer-transform/consumer/consumer/src/main/java/com/bettercloud/interview/IConsumerModel.java
-/Users/andre/Documents/Code/Java/producer-consumer-transform/consumer/consumer/src/main/java/com/bettercloud/interview/TallyEntry.java
-/Users/andre/Documents/Code/Java/producer-consumer-transform/consumer/consumer/src/main/java/com/bettercloud/interview/ConcurrentHashmapConsumerModel.java
-/Users/andre/Documents/Code/Java/producer-consumer-transform/consumer/consumer/src/main/java/com/bettercloud/interview/Application.java
-/Users/andre/Documents/Code/Java/producer-consumer-transform/consumer/consumer/src/main/java/com/bettercloud/interview/ConsumerController.java
+C:\Users\Andre\Documents\Code\JavaProjects\producer-consumer-transform\consumer\consumer\src\main\java\com\bettercloud\interview\ConcurrentHashMapConsumerModel.java
+C:\Users\Andre\Documents\Code\JavaProjects\producer-consumer-transform\consumer\consumer\src\main\java\com\bettercloud\interview\IConsumer.java
+C:\Users\Andre\Documents\Code\JavaProjects\producer-consumer-transform\consumer\consumer\src\main\java\com\bettercloud\interview\ConsumerController.java
+C:\Users\Andre\Documents\Code\JavaProjects\producer-consumer-transform\consumer\consumer\src\main\java\com\bettercloud\interview\Application.java
+C:\Users\Andre\Documents\Code\JavaProjects\producer-consumer-transform\consumer\consumer\src\main\java\com\bettercloud\interview\ConsumeTask.java
+C:\Users\Andre\Documents\Code\JavaProjects\producer-consumer-transform\consumer\consumer\src\main\java\com\bettercloud\interview\IConsumerModel.java
+C:\Users\Andre\Documents\Code\JavaProjects\producer-consumer-transform\consumer\consumer\src\main\java\com\bettercloud\interview\TallyEntry.java

@@ -1,2 +1,7 @@
+com/bettercloud/interview/ITransformModel.class
 com/bettercloud/interview/TransformController.class
 com/bettercloud/interview/Application.class
+com/bettercloud/interview/ITransformer.class
+com/bettercloud/interview/TallyEntry.class
+com/bettercloud/interview/Transformer.class
+com/bettercloud/interview/TransformModel.class
