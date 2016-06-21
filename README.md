@@ -1,5 +1,5 @@
 # producer-consumer-transform
-GitHub Repo for my implementation of BetterCloud's Producer-Consumer-Transform coding assignment. 
+GitHub Repo for my implementation of BetterCloud's Producer-Consumer-Transform coding assignment.
 
 ### Running Producer Project:
 1. cd producer-consumer-transform/producer/producer
@@ -15,6 +15,10 @@ GitHub Repo for my implementation of BetterCloud's Producer-Consumer-Transform c
 1. cd producer-consumer-transform/transform/transform
 2. mvn spring-boot:run
 3. Transform should now be running at http://localhost:4002
+
+### Running Tests:
+1. Navigate to appropriate directory (producer, consumer, or transform)
+2. mvn test
 
 ##Produce Route:
 GET http://localhost:4000/produce
