@@ -13,13 +13,17 @@ public class ConcurrentHashMapConsumerModel implements IConsumerModel{
         return this.map;
     }
 
-    public void addEntry(String email) {
+    //Returns the total for the current email entry after adding to model.
+    public int addEntry(String email) {
+        int current;
         if (map.containsKey(email)) {
-            int current = map.get(email);
-            map.put(email, current + 1);
+            current = map.get(email) + 1;
         } else {
-            map.put(email, 1);
+            current = 1;
         }
+
+        map.put(email, current);
+        return current;
     }
 
     public void clear() {

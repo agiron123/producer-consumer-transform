@@ -30,7 +30,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ArrayList;
 
-import org.springframework.web.client.RestTemplate;
 
 @RestController
 public class TransformController {
@@ -39,21 +38,19 @@ public class TransformController {
     private ITransformModel transformModel;
     private ITransformer transformer;
     private JsonFactory jsonFactory;
-    private RestTemplate restTemplate;
 
     @Autowired
     public TransformController(ITransformModel transformModel, ITransformer transformer) {
         this.transformModel = transformModel;
         this.transformer = transformer;
         this.jsonFactory = new JsonFactory();
-        this.restTemplate = new RestTemplate();
     }
 
     @RequestMapping(value="/transform", method = RequestMethod.POST)
     public ResponseEntity<String> transform(@RequestBody String requestBody) {
         try {
             //Get root JSON node
-            JsonParser parser = jsonFactory.createJsonParser(requestBody);
+            JsonParser parser = jsonFactory.createParser(requestBody);
             parser.setCodec(new ObjectMapper());
             JsonNode rootJsonNode = parser.readValueAsTree();
 
@@ -82,7 +79,7 @@ public class TransformController {
             System.out.println("[TransformController]: Exception caught in transform route.");
         }
 
-        return new ResponseEntity<String>("[TransformController]: Transform route hit!", null, HttpStatus.OK);
+        return new ResponseEntity<>("[TransformController]: Transform route hit!", null, HttpStatus.OK);
     }
 
 }

@@ -13,7 +13,7 @@ import static org.junit.Assert.assertEquals;
 //@WebAppConfiguration
 public class ApplicationTests {
 
-	//Not entirely sure how to properly configure this teat. It throws an IllegalState exception every time..
+	//Not entirely sure how to properly configure this test. It throws an IllegalState exception every time..
 
 	@Test
 	public void contextLoads() {

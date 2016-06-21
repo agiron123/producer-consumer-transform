@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.bettercloud.interview.ConsumeControllerTests" time="0.179" tests="2" errors="0" skipped="0" failures="0">
+<testsuite name="com.bettercloud.interview.ConsumeControllerTests" time="0.141" tests="2" errors="0" skipped="0" failures="1">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="/Library/Java/JavaVirtualMachines/jdk1.8.0_77.jdk/Contents/Home/jre/lib"/>
@@ -61,6 +61,86 @@
     <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase name="postConsumeInvalidJSON" classname="com.bettercloud.interview.ConsumeControllerTests" time="0.099"/>
-  <testcase name="postConsume" classname="com.bettercloud.interview.ConsumeControllerTests" time="0.08"/>
+  <testcase name="postConsumeInvalidJSON" classname="com.bettercloud.interview.ConsumeControllerTests" time="0.07"/>
+  <testcase name="postConsume" classname="com.bettercloud.interview.ConsumeControllerTests" time="0.071">
+    <failure message="Status expected:&lt;200&gt; but was:&lt;500&gt;" type="java.lang.AssertionError"><![CDATA[java.lang.AssertionError: Status expected:<200> but was:<500>
+	at org.springframework.test.util.AssertionErrors.fail(AssertionErrors.java:60)
+	at org.springframework.test.util.AssertionErrors.assertEquals(AssertionErrors.java:89)
+	at org.springframework.test.web.servlet.result.StatusResultMatchers$10.match(StatusResultMatchers.java:626)
+	at org.springframework.test.web.servlet.MockMvc$1.andExpect(MockMvc.java:149)
+	at com.bettercloud.interview.ConsumeControllerTests.postConsume(ConsumeControllerTests.java:35)
+]]></failure>
+    <system-out><![CDATA[01:57:25.820 [main] DEBUG org.springframework.core.env.StandardEnvironment - Adding [systemProperties] PropertySource with lowest search precedence
+01:57:25.821 [main] DEBUG org.springframework.core.env.StandardEnvironment - Adding [systemEnvironment] PropertySource with lowest search precedence
+01:57:25.821 [main] DEBUG org.springframework.core.env.StandardEnvironment - Initialized StandardEnvironment with PropertySources [systemProperties,systemEnvironment]
+01:57:25.822 [main] DEBUG org.springframework.test.web.servlet.setup.StandaloneMockMvcBuilder$StaticRequestMappingHandlerMapping - 1 request handler methods found on class com.bettercloud.interview.ConsumerController: {public org.springframework.http.ResponseEntity com.bettercloud.interview.ConsumerController.consume(java.lang.String)={[/consume],methods=[POST]}}
+01:57:25.822 [main] INFO org.springframework.test.web.servlet.setup.StandaloneMockMvcBuilder$StaticRequestMappingHandlerMapping - Mapped "{[/consume],methods=[POST]}" onto public org.springframework.http.ResponseEntity<java.lang.String> com.bettercloud.interview.ConsumerController.consume(java.lang.String)
+01:57:25.829 [main] DEBUG org.hibernate.validator.internal.engine.resolver.DefaultTraversableResolver - Cannot find javax.persistence.Persistence on classpath. Assuming non JPA 2 environment. All properties will per default be traversable.
+01:57:25.829 [main] DEBUG org.hibernate.validator.internal.engine.ConfigurationImpl - Setting custom MessageInterpolator of type org.springframework.validation.beanvalidation.LocaleContextMessageInterpolator
+01:57:25.830 [main] DEBUG org.hibernate.validator.internal.engine.ConfigurationImpl - Setting custom ParameterNameProvider of type com.sun.proxy.$Proxy18
+01:57:25.830 [main] DEBUG org.hibernate.validator.internal.xml.ValidationXmlParser - Trying to load META-INF/validation.xml for XML based Validator configuration.
+01:57:25.830 [main] DEBUG org.hibernate.validator.internal.xml.ResourceLoaderHelper - Trying to load META-INF/validation.xml via TCCL
+01:57:25.830 [main] DEBUG org.hibernate.validator.internal.xml.ResourceLoaderHelper - Trying to load META-INF/validation.xml via Hibernate Validator's class loader
+01:57:25.830 [main] DEBUG org.hibernate.validator.internal.xml.ValidationXmlParser - No META-INF/validation.xml found. Using annotation based configuration only.
+01:57:25.831 [main] INFO org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter - Looking for @ControllerAdvice: org.springframework.test.web.servlet.setup.StubWebApplicationContext@14fc1f0
+01:57:25.834 [main] DEBUG org.springframework.test.web.servlet.TestDispatcherServlet - Initializing servlet ''
+01:57:25.834 [main] DEBUG org.springframework.web.context.support.StandardServletEnvironment - Adding [servletConfigInitParams] PropertySource with lowest search precedence
+01:57:25.834 [main] DEBUG org.springframework.web.context.support.StandardServletEnvironment - Adding [servletContextInitParams] PropertySource with lowest search precedence
+01:57:25.834 [main] DEBUG org.springframework.web.context.support.StandardServletEnvironment - Adding [systemProperties] PropertySource with lowest search precedence
+01:57:25.834 [main] DEBUG org.springframework.web.context.support.StandardServletEnvironment - Adding [systemEnvironment] PropertySource with lowest search precedence
+01:57:25.834 [main] DEBUG org.springframework.web.context.support.StandardServletEnvironment - Initialized StandardServletEnvironment with PropertySources [servletConfigInitParams,servletContextInitParams,systemProperties,systemEnvironment]
+01:57:25.834 [main] INFO org.springframework.mock.web.MockServletContext - Initializing Spring FrameworkServlet ''
+01:57:25.834 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet - FrameworkServlet '': initialization started
+01:57:25.835 [main] DEBUG org.springframework.test.web.servlet.TestDispatcherServlet - Unable to locate MultipartResolver with name 'multipartResolver': no multipart request handling provided
+01:57:25.835 [main] DEBUG org.springframework.test.web.servlet.TestDispatcherServlet - Using LocaleResolver [org.springframework.web.servlet.i18n.AcceptHeaderLocaleResolver@1800a575]
+01:57:25.835 [main] DEBUG org.springframework.test.web.servlet.TestDispatcherServlet - Using ThemeResolver [org.springframework.web.servlet.theme.FixedThemeResolver@1458ed9c]
+01:57:25.835 [main] DEBUG org.springframework.test.web.servlet.TestDispatcherServlet - Using RequestToViewNameTranslator [org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@10a9d961]
+01:57:25.835 [main] DEBUG org.springframework.test.web.servlet.TestDispatcherServlet - Using FlashMapManager [org.springframework.web.servlet.support.SessionFlashMapManager@130e116b]
+01:57:25.835 [main] DEBUG org.springframework.test.web.servlet.TestDispatcherServlet - Published WebApplicationContext of servlet '' as ServletContext attribute with name [org.springframework.web.servlet.FrameworkServlet.CONTEXT.]
+01:57:25.835 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet - FrameworkServlet '': initialization completed in 0 ms
+01:57:25.835 [main] DEBUG org.springframework.test.web.servlet.TestDispatcherServlet - Servlet '' configured successfully
+01:57:25.838 [main] DEBUG org.springframework.core.env.StandardEnvironment - Adding [systemProperties] PropertySource with lowest search precedence
+01:57:25.838 [main] DEBUG org.springframework.core.env.StandardEnvironment - Adding [systemEnvironment] PropertySource with lowest search precedence
+01:57:25.838 [main] DEBUG org.springframework.core.env.StandardEnvironment - Initialized StandardEnvironment with PropertySources [systemProperties,systemEnvironment]
+01:57:25.840 [main] DEBUG org.springframework.test.web.servlet.setup.StandaloneMockMvcBuilder$StaticRequestMappingHandlerMapping - 1 request handler methods found on class com.bettercloud.interview.ConsumerController: {public org.springframework.http.ResponseEntity com.bettercloud.interview.ConsumerController.consume(java.lang.String)={[/consume],methods=[POST]}}
+01:57:25.840 [main] INFO org.springframework.test.web.servlet.setup.StandaloneMockMvcBuilder$StaticRequestMappingHandlerMapping - Mapped "{[/consume],methods=[POST]}" onto public org.springframework.http.ResponseEntity<java.lang.String> com.bettercloud.interview.ConsumerController.consume(java.lang.String)
+01:57:25.846 [main] DEBUG org.hibernate.validator.internal.engine.resolver.DefaultTraversableResolver - Cannot find javax.persistence.Persistence on classpath. Assuming non JPA 2 environment. All properties will per default be traversable.
+01:57:25.846 [main] DEBUG org.hibernate.validator.internal.engine.ConfigurationImpl - Setting custom MessageInterpolator of type org.springframework.validation.beanvalidation.LocaleContextMessageInterpolator
+01:57:25.846 [main] DEBUG org.hibernate.validator.internal.engine.ConfigurationImpl - Setting custom ParameterNameProvider of type com.sun.proxy.$Proxy18
+01:57:25.846 [main] DEBUG org.hibernate.validator.internal.xml.ValidationXmlParser - Trying to load META-INF/validation.xml for XML based Validator configuration.
+01:57:25.846 [main] DEBUG org.hibernate.validator.internal.xml.ResourceLoaderHelper - Trying to load META-INF/validation.xml via TCCL
+01:57:25.846 [main] DEBUG org.hibernate.validator.internal.xml.ResourceLoaderHelper - Trying to load META-INF/validation.xml via Hibernate Validator's class loader
+01:57:25.846 [main] DEBUG org.hibernate.validator.internal.xml.ValidationXmlParser - No META-INF/validation.xml found. Using annotation based configuration only.
+01:57:25.848 [main] INFO org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter - Looking for @ControllerAdvice: org.springframework.test.web.servlet.setup.StubWebApplicationContext@e383572
+01:57:25.850 [main] DEBUG org.springframework.test.web.servlet.TestDispatcherServlet - Initializing servlet ''
+01:57:25.850 [main] DEBUG org.springframework.web.context.support.StandardServletEnvironment - Adding [servletConfigInitParams] PropertySource with lowest search precedence
+01:57:25.850 [main] DEBUG org.springframework.web.context.support.StandardServletEnvironment - Adding [servletContextInitParams] PropertySource with lowest search precedence
+01:57:25.850 [main] DEBUG org.springframework.web.context.support.StandardServletEnvironment - Adding [systemProperties] PropertySource with lowest search precedence
+01:57:25.851 [main] DEBUG org.springframework.web.context.support.StandardServletEnvironment - Adding [systemEnvironment] PropertySource with lowest search precedence
+01:57:25.851 [main] DEBUG org.springframework.web.context.support.StandardServletEnvironment - Initialized StandardServletEnvironment with PropertySources [servletConfigInitParams,servletContextInitParams,systemProperties,systemEnvironment]
+01:57:25.851 [main] INFO org.springframework.mock.web.MockServletContext - Initializing Spring FrameworkServlet ''
+01:57:25.851 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet - FrameworkServlet '': initialization started
+01:57:25.851 [main] DEBUG org.springframework.test.web.servlet.TestDispatcherServlet - Unable to locate MultipartResolver with name 'multipartResolver': no multipart request handling provided
+01:57:25.851 [main] DEBUG org.springframework.test.web.servlet.TestDispatcherServlet - Using LocaleResolver [org.springframework.web.servlet.i18n.AcceptHeaderLocaleResolver@a4add54]
+01:57:25.851 [main] DEBUG org.springframework.test.web.servlet.TestDispatcherServlet - Using ThemeResolver [org.springframework.web.servlet.theme.FixedThemeResolver@141e5bef]
+01:57:25.851 [main] DEBUG org.springframework.test.web.servlet.TestDispatcherServlet - Using RequestToViewNameTranslator [org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@5f9be66c]
+01:57:25.851 [main] DEBUG org.springframework.test.web.servlet.TestDispatcherServlet - Using FlashMapManager [org.springframework.web.servlet.support.SessionFlashMapManager@3abada5a]
+01:57:25.851 [main] DEBUG org.springframework.test.web.servlet.TestDispatcherServlet - Published WebApplicationContext of servlet '' as ServletContext attribute with name [org.springframework.web.servlet.FrameworkServlet.CONTEXT.]
+01:57:25.851 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet - FrameworkServlet '': initialization completed in 0 ms
+01:57:25.851 [main] DEBUG org.springframework.test.web.servlet.TestDispatcherServlet - Servlet '' configured successfully
+01:57:25.854 [main] DEBUG org.springframework.test.web.servlet.TestDispatcherServlet - DispatcherServlet with name '' processing POST request for [/consume]
+01:57:25.854 [main] DEBUG org.springframework.test.web.servlet.setup.StandaloneMockMvcBuilder$StaticRequestMappingHandlerMapping - Looking up handler method for path /consume
+01:57:25.854 [main] DEBUG org.springframework.test.web.servlet.setup.StandaloneMockMvcBuilder$StaticRequestMappingHandlerMapping - Returning handler method [public org.springframework.http.ResponseEntity<java.lang.String> com.bettercloud.interview.ConsumerController.consume(java.lang.String)]
+01:57:25.854 [main] DEBUG org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor - Read [class java.lang.String] as "application/octet-stream" with [org.springframework.http.converter.StringHttpMessageConverter@56928307]
+Tally:
+{"tally":[{"email":"noah.sanchez@me.com","total":1}]}
+01:57:25.909 [main] DEBUG org.springframework.web.client.RestTemplate - Created POST request for "http://localhost:4002/transform"
+01:57:25.910 [main] DEBUG org.springframework.web.client.RestTemplate - Setting request Accept header to [text/plain, application/json, application/*+json, */*]
+01:57:25.910 [main] DEBUG org.springframework.web.client.RestTemplate - Writing [{"tally":[{"email":"noah.sanchez@me.com","total":1}]}] as "application/json" using [org.springframework.http.converter.StringHttpMessageConverter@344f4dea]
+01:57:25.924 [main] ERROR com.bettercloud.interview.ConsumerController - [ConsumerController.consume()]: I/O error on POST request for "http://localhost:4002/transform": Connection refused; nested exception is java.net.ConnectException: Connection refused
+01:57:25.924 [main] DEBUG org.springframework.web.servlet.mvc.method.annotation.HttpEntityMethodProcessor - Written [Status: error processing request.] as "application/json;charset=UTF-8" using [org.springframework.http.converter.StringHttpMessageConverter@56928307]
+01:57:25.924 [main] DEBUG org.springframework.test.web.servlet.TestDispatcherServlet - Null ModelAndView returned to DispatcherServlet with name '': assuming HandlerAdapter completed request handling
+01:57:25.924 [main] DEBUG org.springframework.test.web.servlet.TestDispatcherServlet - Successfully completed request
+]]></system-out>
+  </testcase>
 </testsuite>

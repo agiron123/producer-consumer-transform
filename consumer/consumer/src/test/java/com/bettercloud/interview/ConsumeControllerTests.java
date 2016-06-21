@@ -5,10 +5,14 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import org.junit.Before;
+import org.mockito.Matchers;
+import org.mockito.Mockito;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -28,6 +32,10 @@ public class ConsumeControllerTests {
         mockMap.put("noah.sanchez@me.com", 1);
         when(mockModel.getModel()).thenReturn(mockMap);
 
+        //TODO: get the RestTemplate mock to work properly.
+        RestTemplate mockRestTemplate = mock(RestTemplate.class);
+        when(mockRestTemplate.postForObject(anyString(), anyObject(), eq(String.class))).thenReturn("Status: done");
+
         //Act and Assert
         String mockJSON = "{\"logs\":[{\"id\":\"89004ef9-e825-4547-a83a-c9e9429e8f95\",\"email\":\"noah.sanchez@me.com\",\"message\":\"successfully handled skipped operation.\"}]}";
         mvc.perform(MockMvcRequestBuilders.post("/consume").accept(MediaType.APPLICATION_JSON)
@@ -37,7 +45,7 @@ public class ConsumeControllerTests {
     }
 
     @Test
-    public void postConsumeInvalidJSON() throws Exception{
+    public void postConsumeInvalidJSON() throws Exception {
         mvc.perform(MockMvcRequestBuilders.post("/consume").accept(MediaType.APPLICATION_JSON)
                 .content("asdf"))
                 .andExpect(status().isInternalServerError())

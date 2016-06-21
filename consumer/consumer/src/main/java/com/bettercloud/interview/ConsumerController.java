@@ -100,9 +100,8 @@ public class ConsumerController {
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
 
-            //TODO: Check for the response to come back.
             //Future Work: Tell producer to try again with the tally.
-            HttpEntity<String> entity = new HttpEntity<String>(jsonMap,headers);
+            HttpEntity<String> entity = new HttpEntity<>(jsonMap,headers);
             restTemplate.postForObject("http://localhost:4002/transform", entity, String.class);
 
         } catch (Exception e) {
