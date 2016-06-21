@@ -24,6 +24,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 import com.fasterxml.jackson.core.JsonParser;
 import java.util.Iterator;
@@ -48,29 +49,42 @@ public class ConsumerController {
         this.restTemplate = new RestTemplate();
     }
 
+    public ConsumerController() {
+        System.out.println("Default constructor hit!");
+    }
+
     //Here is how we can accept a POST request.
     @RequestMapping(value="/consume", method = RequestMethod.POST)
     public ResponseEntity<String> consume(@RequestBody String jsonString) {
+
+        ResponseEntity<String> responseEntity = new ResponseEntity<String>("Status: error processing request.", null, HttpStatus.INTERNAL_SERVER_ERROR);
+
         try {
-            //Clear out the hashmap before parsing the request body.
+            if (jsonString == null){
+                throw new IllegalArgumentException("parameter jsonString is null.");
+            }
+            //Clear out consumer model before parsing the Json body
             consumerModel.clear();
 
-            JsonParser parser = jsonFactory.createJsonParser(jsonString);
+            JsonParser parser = jsonFactory.createParser(jsonString);
             parser.setCodec(new ObjectMapper());
             JsonNode jsonNode = parser.readValueAsTree();
 
             //Spin up a new task to handle the processing of the message contents and pass in the ConcurrentHashMap.
             ConsumeTask consumeTask = new ConsumeTask(consumerModel);
-            consumeTask.consume(jsonNode);
+            JsonNode consumeRoot = consumeTask.consume(jsonNode);
+
+            if (consumeRoot == null) {
+                throw new NullPointerException("consume task returned null.");
+            }
 
             //Send the tally data over to the Transform to get a global tally of email counts.
             ObjectMapper objectMapper = new ObjectMapper();
             JsonNode outputRoot = objectMapper.createObjectNode();
             JsonNode tallyNode = objectMapper.createArrayNode();
-            ((ObjectNode)outputRoot).put("tally", tallyNode);
+            ((ObjectNode)outputRoot).set("tally", tallyNode);
 
             //Print out the tally data.
-            //TODO: Have getModel() return something more generic, like an IStorage interface.
             ConcurrentHashMap<String, Integer> tallyMap = consumerModel.getModel();
             for (String email: tallyMap.keySet()) {
                 Integer total = tallyMap.get(email);
@@ -79,22 +93,25 @@ public class ConsumerController {
             }
 
             String jsonMap = objectMapper.writeValueAsString(outputRoot);
-            System.out.println("JSON OUTPUT:");
+            System.out.println("Tally:");
             System.out.println(jsonMap);
 
             //Send the data off to the transform.
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
 
+            //TODO: Check for the response to come back.
+            //Future Work: Tell producer to try again with the tally.
             HttpEntity<String> entity = new HttpEntity<String>(jsonMap,headers);
-            String transformResponse = restTemplate.postForObject("http://localhost:4002/transform", entity, String.class);
-            System.out.println("Response from transform POST request: " + transformResponse);
+            restTemplate.postForObject("http://localhost:4002/transform", entity, String.class);
 
         } catch (Exception e) {
-            System.out.println("Consumer Controller exception caught!");
+            logger.error("[ConsumerController.consume()]: " + e.getMessage());
+            return responseEntity;
         }
 
         //Send a response to the producer to let it know that this data has been processsed.
-        return new ResponseEntity<String>("Hello World", null, HttpStatus.OK);
+        responseEntity = new ResponseEntity<>("Status: done.", null, HttpStatus.OK);
+        return responseEntity;
     }
 }

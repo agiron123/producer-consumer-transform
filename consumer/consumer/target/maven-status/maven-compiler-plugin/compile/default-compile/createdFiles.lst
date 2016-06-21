@@ -1,7 +1,7 @@
-com\bettercloud\interview\IConsumer.class
-com\bettercloud\interview\ConsumerController.class
-com\bettercloud\interview\ConsumeTask.class
-com\bettercloud\interview\Application.class
-com\bettercloud\interview\ConcurrentHashMapConsumerModel.class
-com\bettercloud\interview\IConsumerModel.class
-com\bettercloud\interview\TallyEntry.class
+com/bettercloud/interview/ConcurrentHashMapConsumerModel.class
+com/bettercloud/interview/IConsumer.class
+com/bettercloud/interview/ConsumeTask.class
+com/bettercloud/interview/ConsumerController.class
+com/bettercloud/interview/IConsumerModel.class
+com/bettercloud/interview/Application.class
+com/bettercloud/interview/TallyEntry.class

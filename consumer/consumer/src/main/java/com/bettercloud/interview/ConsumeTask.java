@@ -21,17 +21,28 @@ public class ConsumeTask implements IConsumer{
 
     @Autowired
     public ConsumeTask(IConsumerModel model) {
+        if (model == null) {
+            throw new IllegalArgumentException("model must not be null");
+        }
+
         this.model = model;
         this.jsonFactory = new JsonFactory();
     }
 
-    public void consume(JsonNode rootNode) {
+    public JsonNode consume(JsonNode rootNode) {
         JsonNode logRoot = rootNode.path("logs");
+
+        if (logRoot == null) {
+            throw new NullPointerException("ConsumeTask.consume: no log value found in JSON input.");
+        }
+
         Iterator<JsonNode> iterator = logRoot.elements();
         while(iterator.hasNext()) {
             JsonNode current = iterator.next();
             String email = current.get("email").asText();
             model.addEntry(email);
         }
+
+        return logRoot;
     }
 }
