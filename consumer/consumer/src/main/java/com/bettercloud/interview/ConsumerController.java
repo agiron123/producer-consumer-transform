@@ -38,15 +38,17 @@ public class ConsumerController {
     private static final Logger logger = LoggerFactory.getLogger(ConsumerController.class);
     public IConsumerModel consumerModel;
     private JsonFactory jsonFactory;
+
+    @Autowired
     private RestTemplate restTemplate;
 
     @Autowired
-    public ConsumerController(IConsumerModel consumerModel) {
+    public ConsumerController(IConsumerModel consumerModel, RestTemplate restTemplate) {
         //Note: we could simply do this with an in memory Concurrent Hashmap.
         //But to show OOP skills, we will use some Dependency Injection.
         this.consumerModel = consumerModel;
         this.jsonFactory = new JsonFactory();
-        this.restTemplate = new RestTemplate();
+        this.restTemplate = restTemplate;
     }
 
     public ConsumerController() {

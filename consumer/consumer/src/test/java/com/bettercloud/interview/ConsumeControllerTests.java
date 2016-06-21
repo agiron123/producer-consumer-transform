@@ -18,11 +18,12 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class ConsumeControllerTests {
     private final IConsumerModel mockModel = mock(IConsumerModel.class);
-    private MockMvc mvc = MockMvcBuilders.standaloneSetup(new ConsumerController(mockModel)).build();
+    private final RestTemplate mockRestTemplate = mock(RestTemplate.class);
+    private MockMvc mvc = MockMvcBuilders.standaloneSetup(new ConsumerController(mockModel, mockRestTemplate)).build();
 
     @Before
     public void setUp() throws Exception {
-        mvc = MockMvcBuilders.standaloneSetup(new ConsumerController(mockModel)).build();
+        mvc = MockMvcBuilders.standaloneSetup(new ConsumerController(mockModel, mockRestTemplate)).build();
     }
 
     @Test
@@ -31,9 +32,6 @@ public class ConsumeControllerTests {
         ConcurrentHashMap<String, Integer> mockMap = new ConcurrentHashMap<String,Integer>();
         mockMap.put("noah.sanchez@me.com", 1);
         when(mockModel.getModel()).thenReturn(mockMap);
-
-        //TODO: get the RestTemplate mock to work properly.
-        RestTemplate mockRestTemplate = mock(RestTemplate.class);
         when(mockRestTemplate.postForObject(anyString(), anyObject(), eq(String.class))).thenReturn("Status: done");
 
         //Act and Assert
