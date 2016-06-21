@@ -7,6 +7,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import org.junit.Before;
 import org.mockito.Matchers;
 import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -18,7 +19,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class ConsumeControllerTests {
     private final IConsumerModel mockModel = mock(IConsumerModel.class);
-    private final RestTemplate mockRestTemplate = mock(RestTemplate.class);
+    private RestTemplate mockRestTemplate = mock(RestTemplate.class);
     private MockMvc mvc = MockMvcBuilders.standaloneSetup(new ConsumerController(mockModel, mockRestTemplate)).build();
 
     @Before

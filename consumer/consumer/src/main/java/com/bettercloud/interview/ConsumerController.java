@@ -13,11 +13,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+
+import org.springframework.web.client.RestOperations;
 
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -44,11 +48,9 @@ public class ConsumerController {
 
     @Autowired
     public ConsumerController(IConsumerModel consumerModel, RestTemplate restTemplate) {
-        //Note: we could simply do this with an in memory Concurrent Hashmap.
-        //But to show OOP skills, we will use some Dependency Injection.
         this.consumerModel = consumerModel;
-        this.jsonFactory = new JsonFactory();
         this.restTemplate = restTemplate;
+        this.jsonFactory = new JsonFactory();
     }
 
     public ConsumerController() {
