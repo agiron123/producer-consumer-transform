@@ -26,11 +26,12 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import com.fasterxml.jackson.core.JsonParser;
+import org.springframework.web.client.RestTemplate;
+
 import java.util.Iterator;
 import java.util.List;
 import java.util.ArrayList;
 
-import org.springframework.web.client.RestTemplate;
 
 @RestController
 public class TransformController {
@@ -39,21 +40,21 @@ public class TransformController {
     private ITransformModel transformModel;
     private ITransformer transformer;
     private JsonFactory jsonFactory;
-    private RestTemplate restTemplate;
 
     @Autowired
     public TransformController(ITransformModel transformModel, ITransformer transformer) {
         this.transformModel = transformModel;
         this.transformer = transformer;
         this.jsonFactory = new JsonFactory();
-        this.restTemplate = new RestTemplate();
     }
 
     @RequestMapping(value="/transform", method = RequestMethod.POST)
     public ResponseEntity<String> transform(@RequestBody String requestBody) {
+
+        ResponseEntity<String> response = new ResponseEntity<>("[TransformController]: Error processing transform", null, HttpStatus.INTERNAL_SERVER_ERROR);
         try {
             //Get root JSON node
-            JsonParser parser = jsonFactory.createJsonParser(requestBody);
+            JsonParser parser = jsonFactory.createParser(requestBody);
             parser.setCodec(new ObjectMapper());
             JsonNode rootJsonNode = parser.readValueAsTree();
 
@@ -79,10 +80,12 @@ public class TransformController {
             System.out.println(jsonMap);
 
         } catch (Exception e) {
-            System.out.println("[TransformController]: Exception caught in transform route.");
+            logger.error("[TransformController]: Exception caught in transform route.");
+            return response;
         }
 
-        return new ResponseEntity<String>("[TransformController]: Transform route hit!", null, HttpStatus.OK);
+        response = new ResponseEntity<>("[TransformController]: Transform route hit!", null, HttpStatus.OK);
+        return response;
     }
 
 }

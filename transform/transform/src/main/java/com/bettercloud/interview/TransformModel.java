@@ -11,17 +11,19 @@ public class TransformModel implements ITransformModel {
         this.model = new ConcurrentHashMap<String, Integer>();
     }
 
-    public void addEntry(String email, int total) {
+    public int addEntry(String email, int total) {
+        int current;
         if (model.containsKey(email)) {
-            int current = model.get(email);
+            current = model.get(email) + total;
             model.put(email, current + total);
         } else {
-            model.put(email, total);
+            current = total;
         }
+
+        model.put(email, current);
+        return current;
     }
 
-    //TODO: Create an IStorage interface that we can use to make our implementation not dependant on hashmaps.
-    //One add method with just email parameter, another one with a total to add. This would accommodate consumer and transformer.
     public ConcurrentHashMap<String, Integer> getModel() {
         return this.model;
     }
